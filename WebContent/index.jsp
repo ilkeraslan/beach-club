@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Beach Club</title>
+		<script src="script.js"></script>
 	</head>
 	<body>
 		<div>
@@ -20,8 +21,8 @@
 				<option>----</option>
 			</select>
 			<input type="text" id="nameInputForTicket">
-			<button onclick="addToQueue">Get in line</button>
-			<button onclick="removeFromQueue">Leave the line</button>
+			<button onclick="addToQueue()">Get in line</button>
+			<button onclick="removeFromQueue()">Leave the line</button>
 		</div>
 	</body>
 </html>
