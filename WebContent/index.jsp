@@ -13,16 +13,23 @@
 			</ul>
 		</div>
 		<div>
-			<h2>Availability</h2>
+			<div>
+				<h2>Queue</h2>
+				<select id="queueForTicket">
+					<option selected disabled hidden>Choose here</option>
+				</select>
+				<input type="text" id="nameInputForTicket">
+				<button onclick="addToQueue()">Get in line</button>
+				<button onclick="removeFromQueue()">Leave the line</button>
+			</div>
+			<div>
+				<h2>Current Queue Length: <span id="currentQueueLength">0</span></h2>
+			</div>
 		</div>
 		<div>
-			<h2>Queue</h2>
-			<select id="queueForTicket">
-				<option>----</option>
-			</select>
-			<input type="text" id="nameInputForTicket">
-			<button onclick="addToQueue()">Get in line</button>
-			<button onclick="removeFromQueue()">Leave the line</button>
+			<div id="clubAvailability">
+				<h2>Club Availability</h2>
+			</div>
 		</div>
 	</body>
 </html>
