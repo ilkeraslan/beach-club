@@ -1,4 +1,4 @@
-package it.ilker.apsw.beachclub;
+package it.ilker.apsw.beachclub.controllers;
 
 import java.io.IOException;
 
@@ -9,17 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.ilker.apsw.beachclub.BeachBookingService;
+import it.ilker.apsw.beachclub.BeachBookingStorage;
+import it.ilker.apsw.beachclub.models.Seat;
+
 /**
- * Servlet implementation class ClientController
+ * Servlet implementation class SeatsController
  */
-@WebServlet({"/ClientController", "/show-client"})
-public class ClientController extends HttpServlet {
+@WebServlet({ "/SeatsController", "/show-seats" })
+public class SeatsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClientController() {
+    public SeatsController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,17 +32,17 @@ public class ClientController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String clientId = request.getParameter("clientId");
-		ClientSearchService service = new ClientStorage();
-		Client client = service.findClient(clientId);
-		request.setAttribute("client", client);
+		String seatId = request.getParameter("clientId");
+		BeachBookingService bookingService = new BeachBookingStorage();
+		Seat seat = bookingService.findSeat(seatId);
+		request.setAttribute("seat", seat);
 		String address;
 		
-		if(client == null) {
-			request.setAttribute("badClientId", clientId);
-			address = "/WEB-INF/results/unknown-client.jsp";
+		if(seat == null) {
+			request.setAttribute("badSeatId", seatId);
+			address = "/WEB-INF/results/unknown-seat.jsp";
 		} else {
-			address = "/WEB-INF/results/client.jsp"; 
+			address = "/WEB-INF/results/seat.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);

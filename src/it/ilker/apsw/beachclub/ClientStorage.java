@@ -3,6 +3,8 @@ package it.ilker.apsw.beachclub;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.ilker.apsw.beachclub.models.Client;
+
 public class ClientStorage implements ClientSearchService {
 
 	private Map<String, Client> clients;

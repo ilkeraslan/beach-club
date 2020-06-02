@@ -1,4 +1,4 @@
-package it.ilker.apsw.beachclub;
+package it.ilker.apsw.beachclub.models;
 
 public class Client {
 	private final String id, firstName, lastName;
