@@ -13,7 +13,7 @@
 				<th>Seat Information</th>
 			</tr>
 		</table>
-		<p>Seat id: ${seat.firstName}</p>
+		<p>Seat id: ${seat.id}</p>
 		<p>Seat is occupied: ${seat.isOccupied}</p>
 	</div>
 </body>

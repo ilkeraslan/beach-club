@@ -12,7 +12,7 @@ public class Seat {
 		return this.id;
 	}
 	
-	public Boolean isOccupied() {
+	public Boolean getIsOccupied() {
 		return this.isOccupied;
 	}
 	

@@ -32,7 +32,7 @@ public class SeatsController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String seatId = request.getParameter("clientId");
+		String seatId = request.getParameter("seatId");
 		BeachBookingService bookingService = new BeachBookingStorage();
 		Seat seat = bookingService.findSeat(seatId);
 		request.setAttribute("seat", seat);

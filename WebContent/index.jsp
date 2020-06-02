@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%@ page import="it.ilker.apsw.beachclub.BeachBookingStorage"%>
+<%@ page import="it.ilker.apsw.beachclub.models.Seat"%>
+<%@ page import="java.util.Map"%>
+<%@ page import="java.util.HashMap"%>
 <html>
 	<head>
 		<title>Beach Club</title>
@@ -31,6 +35,12 @@
 		<div>
 			<div id="clubAvailability">
 				<h2>Club Availability</h2>
+				<ul>
+				<% Map<String, Seat> seats = new BeachBookingStorage().getSeats(); %>
+				<% for(Integer i=1; i<=seats.size(); i++) {%>
+					<li>Seat no: <%= seats.get(i.toString()).getId() %> / Occupied: <%= seats.get(i.toString()).getIsOccupied() %></li>
+				<% } %>
+				</ul>
 			</div>
 		</div>
 	</body>

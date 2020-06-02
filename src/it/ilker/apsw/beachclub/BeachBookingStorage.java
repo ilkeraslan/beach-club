@@ -11,11 +11,9 @@ public class BeachBookingStorage implements BeachBookingService {
 	
 	public BeachBookingStorage() {
 		seats = new HashMap<String, Seat>(25);
-		addSeat(new Seat("001"));
-		addSeat(new Seat("002"));
-		addSeat(new Seat("003"));
-		addSeat(new Seat("004"));
-		addSeat(new Seat("005"));
+		for(Integer i=1; i<=25; i++) {
+			addSeat(new Seat(i.toString()));
+		}
 	}
 
 	@Override
@@ -26,6 +24,12 @@ public class BeachBookingStorage implements BeachBookingService {
 		return null;
 	}
 
+
+	@Override
+	public Map<String, Seat> getSeats() {
+		return this.seats;
+	}
+	
 	private void addSeat(Seat seat) {
 		seats.put(seat.getId(), seat);
 	}
