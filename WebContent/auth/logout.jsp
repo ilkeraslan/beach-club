@@ -10,6 +10,6 @@
 	Goodbye <%= request.getRemoteUser() %>
 	<%request.logout(); %>
 	<p>You successfully logged out (<%= request.getRemoteUser() %>)</p>
-	<a href="./login.jsp">Go to reserved area</a>
+	<% response.sendRedirect("../index.jsp"); %>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package it.ilker.apsw.beachclub.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +28,46 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            String userName = request.getParameter("txtUserName");
+            String password = request.getParameter("txtPassword");
+
+            out.println("Before Login" + "<br><br>");
+            out.println("IsUserInRole?.."
+                        + request.isUserInRole("pr")+"<br>");
+            out.println("getRemoteUser?.." + request.getRemoteUser()+"<br>");
+            out.println("getUserPrincipal?.."
+                        + request.getUserPrincipal()+"<br>");
+            out.println("getAuthType?.." + request.getAuthType()+"<br><br>");
+
+            try {
+                request.login(userName, password);
+            } catch(ServletException ex) {
+                out.println("Login Failed with a ServletException.."
+                    + ex.getMessage());
+                return;
+            }
+            out.println("After Login..."+"<br><br>");
+            out.println("IsUserInRole?.."
+                        + request.isUserInRole("pr")+"<br>");
+            out.println("getRemoteUser?.." + request.getRemoteUser()+"<br>");
+            out.println("getUserPrincipal?.."
+                        + request.getUserPrincipal()+"<br>");
+            out.println("getAuthType?.." + request.getAuthType()+"<br><br>");
+
+            request.logout();
+            out.println("After Logout..."+"<br><br>");
+            out.println("IsUserInRole?.."
+                        + request.isUserInRole("pr")+"<br>");
+            out.println("getRemoteUser?.." + request.getRemoteUser()+"<br>");
+            out.println("getUserPrincipal?.."
+                        + request.getUserPrincipal()+"<br>");
+            out.println("getAuthType?.." + request.getAuthType()+"<br>");
+        } finally {
+            out.close();
+        }
 	}
 
 	/**
