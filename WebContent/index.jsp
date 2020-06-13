@@ -20,6 +20,7 @@
 				<p><a href="client-search.html">Client Search</a></p>
 				<p><a href="seat-search.html">Seat Search</a></p>
 				<p><a href="./auth/login.jsp">Login</a></p>
+				<p><a href="./payments/cart.html">Cart</a></p>
 				<ul>
 					<li>Now: <%= new java.util.Date() %></li>
 					<li>Operator session: <%= session.getId() %></li>

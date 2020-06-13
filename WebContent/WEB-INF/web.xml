@@ -13,17 +13,24 @@ version="4.0">
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
   <security-constraint>
   	<web-resource-collection>
   		<web-resource-name>reserved</web-resource-name>
   		<url-pattern>/payments/*</url-pattern>
   	</web-resource-collection>
+  	<auth-constraint>
+		<role-name>user</role-name>
+	</auth-constraint>
   </security-constraint>
+  <security-role>
+	<role-name>user</role-name>
+  </security-role>
   <login-config>
 	<auth-method>FORM</auth-method>
 	<form-login-config>
-	<form-login-page>/auth/login.jsp</form-login-page>
-	<form-error-page>/auth/login.jsp?show=logerror</form-error-page>
+		<form-login-page>/auth/login.jsp</form-login-page>
+		<form-error-page>/auth/login.jsp?show=logerror</form-error-page>
 	</form-login-config>
   </login-config>
 </web-app>
