@@ -15,7 +15,7 @@ public class Database {
 	public static void execute(Query q) {
 		try {
 			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mlc");
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/aslan-beachclub");
 			try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement()) {
 				boolean b = statement.execute(q.getSQL());
 				if (b) {
