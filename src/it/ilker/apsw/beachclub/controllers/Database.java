@@ -16,7 +16,10 @@ public class Database {
 		try {
 			Context ctx = new InitialContext();
 			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/aslan-beachclub");
-			try (Connection connection = ds.getConnection(); Statement statement = connection.createStatement()) {
+			try (
+				Connection connection = ds.getConnection(); 
+				Statement statement = connection.createStatement()
+			) {
 				boolean b = statement.execute(q.getSQL());
 				if (b) {
 					q.setResult(statement.getResultSet());

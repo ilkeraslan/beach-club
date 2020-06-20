@@ -1,6 +1,8 @@
 package it.ilker.apsw.beachclub.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,18 +30,8 @@ public class LoginController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String address = "";
-        String sql = request.getParameter("loginEmail");
-        Query query= new Query(sql);
-        request.setAttribute("query", query);
-        Database.execute(query);
-        if(query.getStatus() == Database.RESULT ) {
-        	address = "/index.jsp"; 
-        } else {
-        	address = "/WEB-INF/results/unknown-client.jsp";
-        }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     
+		String address = "/auth/login.html";
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
 	}
@@ -48,7 +40,32 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        String address = "";
+        String email = request.getParameter("loginEmail");
+        String password = request.getParameter("loginPassword");
+        String sql = "select * from users where email='" + email + "'" + " and password='" + password+ "'";
+        Query query= new Query(sql);
+        System.out.println(sql.toString());
+        request.setAttribute("query", query);
+        Database.execute(query);
+        
+        if(query.getStatus() == Database.RESULT ) {
+        	System.out.println(query.getResult().toString());
+        	if(query.getResult().isEmpty()) {
+        		address = "/WEB-INF/results/unknown-seat.jsp"; // TODO change
+        		System.out.println("Login failed " + query.getExceptionMessage());
+        	} else {
+        		address = "/WEB-INF/results/result.jsp";
+        	}
+        } else if(query.getStatus() == Database.NORESULT) {
+        	address = "/WEB-INF/results/unknown-seat.jsp"; // TODO change
+        } else {
+        	address = "/WEB-INF/results/unknown-client.jsp"; // TODO change
+        	System.out.println("Login failed " + query.getExceptionMessage());
+        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+        dispatcher.forward(request, response);
 	}
 }
