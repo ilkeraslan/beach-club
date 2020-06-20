@@ -8,7 +8,10 @@
 </head>
 <body>
 	Goodbye <%= request.getRemoteUser() %>
-	<% request.logout(); %>
+	<% 
+		request.logout();
+		session.invalidate();
+	%>
 	<p>You successfully logged out (<%= request.getRemoteUser() %>)</p>
 
 </body>

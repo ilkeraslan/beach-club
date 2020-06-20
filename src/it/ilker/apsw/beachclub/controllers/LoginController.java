@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import it.ilker.apsw.beachclub.models.Query;
 
@@ -58,6 +59,8 @@ public class LoginController extends HttpServlet {
                 try {
                 	username = query.getResult().get(1).get(1);
                 	request.login(username, password);
+                	HttpSession session = request.getSession();
+                	session.setAttribute("username", username);
                 	address = "index.jsp";
                 	System.out.println(request.getRemoteUser().toString());
                 } catch(ServletException exception) {

@@ -14,14 +14,36 @@
 		<script src="script.js"></script>
 	</head>
 	<body>
+	<% String currentUsername = (String) session.getAttribute("username"); %>
 		<div class="container-fluid">
 			<div>
-				<h1>Beach Club</h1>
-				<p><a href="client-search.html">Client Search</a></p>
-				<p><a href="seat-search.html">Seat Search</a></p>
-				<p><a href="./payments/cart.html">Cart</a></p>
-				<p><a href="./auth/login.html">Login</a></p>
-				<p><a href="./auth/logout.jsp">Logout</a></p>
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				  <a class="navbar-brand" href="">BeachClub</a>
+				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  </button>
+				  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				  <% if(currentUsername == null) { %>
+				    <div class="navbar-nav">
+				      <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
+				      <a class="nav-item nav-link" href="client-search.html">Client Search</a>
+				      <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
+				      <a class="nav-item nav-link" href="./payments/cart.html">Cart</a>
+				      <a class="nav-item nav-link" href="./auth/login.html">Login</a>
+				      <a class="nav-item nav-link" href="#">Register</a>
+				    </div>
+				    <% } else { %>
+				      <div class="navbar-nav">
+				        <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
+				        <a class="nav-item nav-link" href="client-search.html">Client Search</a>
+				        <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
+				        <a class="nav-item nav-link" href="./payments/cart.html">Cart</a>
+				        <a class="nav-item nav-link" href="./auth/logout.jsp">Logout</a>
+				      </div>
+				    <% } %>
+				  </div>
+				</nav>
+
 				<ul>
 					<li>Now: <%= new java.util.Date() %></li>
 					<li>Operator session: <%= session.getId() %></li>
