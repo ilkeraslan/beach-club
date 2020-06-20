@@ -1,8 +1,6 @@
 package it.ilker.apsw.beachclub.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,11 +38,13 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.logout();
         response.setContentType("text/html;charset=UTF-8");
         String address = "";
         String email = request.getParameter("loginEmail");
         String password = request.getParameter("loginPassword");
-        String sql = "select * from users where email='" + email + "'" + " and password='" + password+ "'";
+        String username = "";
+        String sql = "select * from users where email='" + email + "'" + " and password='" + password + "'";
         Query query= new Query(sql);
         System.out.println(sql.toString());
         request.setAttribute("query", query);
@@ -52,17 +52,23 @@ public class LoginController extends HttpServlet {
         
         if(query.getStatus() == Database.RESULT ) {
         	System.out.println(query.getResult().toString());
-        	if(query.getResult().isEmpty()) {
-        		address = "/WEB-INF/results/unknown-seat.jsp"; // TODO change
-        		System.out.println("Login failed " + query.getExceptionMessage());
+        	if(query.getResult().isEmpty() || query.getResult().size() == 1) {
+        		address = "/results/auth/error.html";
         	} else {
-        		address = "/WEB-INF/results/result.jsp";
+                try {
+                	username = query.getResult().get(1).get(1);
+                	request.login(username, password);
+                	address = "index.jsp";
+                	System.out.println(request.getRemoteUser().toString());
+                } catch(ServletException exception) {
+                	System.out.println("Login failed " + exception);
+                	address = "/results/auth/error.html";
+                }
         	}
         } else if(query.getStatus() == Database.NORESULT) {
-        	address = "/WEB-INF/results/unknown-seat.jsp"; // TODO change
+        	address = "/results/unknown-seat.jsp"; // TODO change
         } else {
-        	address = "/WEB-INF/results/unknown-client.jsp"; // TODO change
-        	System.out.println("Login failed " + query.getExceptionMessage());
+        	address = "/results/auth/error.html";
         }
         
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);

@@ -8,8 +8,8 @@
 </head>
 <body>
 	Goodbye <%= request.getRemoteUser() %>
-	<%request.logout(); %>
+	<% request.logout(); %>
 	<p>You successfully logged out (<%= request.getRemoteUser() %>)</p>
-	<% response.sendRedirect("../index.jsp"); %>
+
 </body>
 </html>
