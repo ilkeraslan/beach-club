@@ -30,7 +30,7 @@
 				      <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
 				      <a class="nav-item nav-link" href="./payments/cart.html">Cart</a>
 				      <a class="nav-item nav-link" href="./auth/login.html">Login</a>
-				      <a class="nav-item nav-link" href="#">Register</a>
+				      <a class="nav-item nav-link" href="./auth/signup.html">Signup</a>
 				    </div>
 				    <% } else { %>
 				      <div class="navbar-nav">
