@@ -66,7 +66,11 @@
 					<select class="form-control" id="queueForTicket">
 						<option selected disabled hidden="false">Choose here</option>
 					</select>
+				</div>
+				<div class="form-group">
 					<input type="text" class="form-control" id="nameInputForTicket" placeholder="Your name here.">
+				</div>
+				<div class="form-group">
 					<button onclick="addToQueue()" type="submit" class="btn btn-success">Get in line</button>
 					<button onclick="removeFromQueue()" type="submit" class="btn btn-danger">Leave the line</button>
 				</div>
