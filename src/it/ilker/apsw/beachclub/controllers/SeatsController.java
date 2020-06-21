@@ -40,9 +40,9 @@ public class SeatsController extends HttpServlet {
 		
 		if(seat == null) {
 			request.setAttribute("badSeatId", seatId);
-			address = "/WEB-INF/results/unknown-seat.jsp";
+			address = "/results/seat/unknown-seat.jsp";
 		} else {
-			address = "/WEB-INF/results/seat.jsp";
+			address = "/results/seat/seat.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
