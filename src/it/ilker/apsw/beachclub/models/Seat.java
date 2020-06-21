@@ -16,11 +16,11 @@ public class Seat {
 		return this.isOccupied;
 	}
 	
-	public void freeOccupation() {
-		this.isOccupied = false;
+	public void occupySeat() {
+		this.isOccupied = true;
 	}
 	
-	public void occupy() {
-		this.isOccupied = true;
+	public void freeSeat() {
+		this.isOccupied = false;
 	}
 }

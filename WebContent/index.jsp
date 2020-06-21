@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="it.ilker.apsw.beachclub.BeachBookingStorage"%>
-<%@ page import="it.ilker.apsw.beachclub.models.Seat"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.HashMap"%>
 <html>

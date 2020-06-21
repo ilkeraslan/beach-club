@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.ilker.apsw.beachclub.BeachBookingService;
-import it.ilker.apsw.beachclub.BeachBookingStorage;
 import it.ilker.apsw.beachclub.models.Seat;
 
 /**
@@ -39,21 +38,19 @@ public class BookingController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String address = "/results/seat/booking-result.jsp";
-		Integer seatId = Integer.parseInt(request.getParameter("bookingSeatId"));
-		BeachBookingService bookingService = new BeachBookingStorage();
-		Seat seatToBook = bookingService.findSeat(seatId.toString());
+		String seatId = request.getParameter("bookingSeatId");
+		String operationType = request.getParameter("operationType");
+		System.out.println(operationType);
+		Seat seatToBook = BeachBookingService.findSeat(seatId.toString());
 		
-		bookingService.occupySeat(seatId); 
-		
-		/*
-		 * switch(q.getStatus()) { case Database.RESULT: address =
-		 * "/results/seat/result.jsp"; break; case Database.NORESULT: address =
-		 * "/WEB-INF/view/noresult.jsp"; break; case Database.ERROR: address =
-		 * "/WEB-INF/view/error.jsp"; break; default: address =
-		 * "/WEB-INF/view/invalid.jsp"; }
-		 */
-			
-		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
-		dispatcher.forward(request, response);
+		if(operationType.equals(BeachBookingService.OCCUPY)) {
+			BeachBookingService.occupySeat(seatToBook.getId());
+		} else if(operationType.equals(BeachBookingService.FREE)) {
+			BeachBookingService.freeSeat(seatToBook.getId());
+		} else {
+			System.out.println("Error getting the operation type!");
+		}
+
+		response.sendRedirect("/beach-club");
 	}
 }

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.ilker.apsw.beachclub.BeachBookingService;
-import it.ilker.apsw.beachclub.BeachBookingStorage;
 import it.ilker.apsw.beachclub.models.Seat;
 
 /**
@@ -32,10 +31,16 @@ public class SeatsController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.sendRedirect("/beach-club/seat-search.html");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String seatId = request.getParameter("seatId");
-		BeachBookingService bookingService = new BeachBookingStorage();
-		Seat seat = bookingService.findSeat(seatId);
-		request.setAttribute("seat", seat);
+		Seat seat = BeachBookingService.findSeat(seatId);
+		request.setAttribute("seatId", seatId);
 		String address;
 		
 		if(seat == null) {
@@ -48,13 +53,4 @@ public class SeatsController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

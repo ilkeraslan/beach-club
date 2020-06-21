@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="it.ilker.apsw.beachclub.models.Seat"%>
+<%@ page import="it.ilker.apsw.beachclub.BeachBookingService"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,12 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </head>
 <body>
+	<% 
+		String seatId = (String) request.getAttribute("seatId"); 
+		Seat seat = BeachBookingService.findSeat(seatId);
+		System.out.println(seat.getId());
+		System.out.println(seat.getIsOccupied());
+	%>
 	<div class="container-fluid">
 		<div class="mt-4">
 			<table class="table table-bordered table-striped">
@@ -21,8 +28,8 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>Seat id: ${seat.id}</td>
-						<td>Seat is occupied: ${seat.isOccupied}</td>
+						<td>Seat id: <%= seat.getId() %></td>
+						<td>Seat is occupied: <%= seat.getIsOccupied() %></td>
 					</tr>
 				</tbody>
 			</table>
@@ -30,9 +37,16 @@
 		
 		<div class="mt-4">
 			<form id="seat_occupation_form" action='/beach-club/booking' method="post">
-			  <input type="hidden" id="bookingSeatId" name="bookingSeatId" value="${seat.id}">
+			  <input type="hidden" id="bookingSeatId" name="bookingSeatId" value="<%= seat.getId() %>">
+			  <% if(!seat.getIsOccupied()) { %>
+			  <input type="hidden" id="operationType" name="operationType" value="<%= BeachBookingService.OCCUPY %>">
 			  <button type="submit" class="btn btn-success">Occupy</button>
 			  <button type="submit" class="btn btn-success invisible">Free</button>
+			  <% } else { %>
+			  <input type="hidden" id="operationType" name="operationType" value="<%= BeachBookingService.FREE %>">
+			  <button type="submit" class="btn btn-success invisible">Occupy</button>
+			  <button type="submit" class="btn btn-success">Free</button>
+			  <% } %>
 			</form>
 		</div>
 		
