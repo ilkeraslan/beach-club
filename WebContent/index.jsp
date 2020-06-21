@@ -17,7 +17,7 @@
 			$(window).on('pageshow', function() {
 				$.get("/beach-club/sunbeds", function(data, status) {
 					if (status == "success") {
-						$("#out").html(data);
+						$("#clubAvailability").html(data);
 						console.log(data);
 					}
 				});
@@ -60,6 +60,7 @@
 					<li>Operator session: <%= session.getId() %></li>
 				</ul>
 			</div>
+			
 			<div>
 				<div>
 					<h2>Queue</h2>
@@ -74,54 +75,11 @@
 					<h2>Current Queue Length: <span id="currentQueueLength">0</span></h2>
 				</div>
 			</div>
+			
 			<div>
-				<div id="clubAvailability" class="table-responsive">
-					<h2>Club Availability</h2>
-					<% Map<String, Seat> seats = new BeachBookingStorage().getSeats(); %>
-						<table class="table table-bordered table-striped">
-							<thead class="thead-dark">
-								<tr>
-									<th scope="col">#</th>
-									<th colspan="5" class="text-center">SUNBEDS</th>
-								</tr>
-							</thead>
-							<tbody>
-							<tr>
-								<th scope="row">1-5</th>
-								<% for(Integer i=1; i<=5; i++) {%>
-								<td><%= seats.get(i.toString()).getId() %> - Occupied: <%= seats.get(i.toString()).getIsOccupied() %></td>
-								<% } %>
-							</tr>
-							<tr>
-								<th scope="row">6-10</th>
-								<% for(Integer i=6; i<=10; i++) {%>
-								<td><%= seats.get(i.toString()).getId() %> - Occupied: <%= seats.get(i.toString()).getIsOccupied() %></td>
-								<% } %>
-							</tr>
-							<tr>
-								<th scope="row">11-15</th>
-								<% for(Integer i=11; i<=15; i++) {%>
-								<td><%= seats.get(i.toString()).getId() %> - Occupied: <%= seats.get(i.toString()).getIsOccupied() %></td>
-								<% } %>
-							</tr>
-							<tr>
-								<th scope="row">16-20</th>
-								<% for(Integer i=16; i<=20; i++) {%>
-								<td><%= seats.get(i.toString()).getId() %> - Occupied: <%= seats.get(i.toString()).getIsOccupied() %></td>
-								<% } %>
-							</tr>
-							<tr>
-								<th scope="row">21-25</th>
-								<% for(Integer i=21; i<=25; i++) {%>
-								<td><%= seats.get(i.toString()).getId() %> - Occupied: <%= seats.get(i.toString()).getIsOccupied() %></td>
-								<% } %>
-							</tr>
-							</tbody>
-						</table>
-				</div>
+				<div id="clubAvailability" class="table-responsive"></div>
 			</div>
 			
-			<div id="out"></div>
 		</div>
 	</body>
 </html>
