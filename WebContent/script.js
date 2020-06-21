@@ -9,7 +9,7 @@ function addToQueue() {
 
 function removeFromQueue() {
 	var menu = document.getElementById("queueForTicket");
-	if (menu.options.length > 0) {
+	if (menu.options.length > 1) {
 		menu.remove(menu.selectedIndex);
 		updateCurrentQueueLength();
 	}

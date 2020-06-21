@@ -18,7 +18,6 @@
 				$.get("/beach-club/sunbeds", function(data, status) {
 					if (status == "success") {
 						$("#clubAvailability").html(data);
-						console.log(data);
 					}
 				});
 			});
@@ -62,14 +61,14 @@
 			</div>
 			
 			<div>
-				<div>
+				<div class="form-group">
 					<h2>Queue</h2>
-					<select id="queueForTicket">
-						<option selected disabled hidden="true">Choose here</option>
+					<select class="form-control" id="queueForTicket">
+						<option selected disabled hidden="false">Choose here</option>
 					</select>
-					<input type="text" id="nameInputForTicket">
-					<button onclick="addToQueue()">Get in line</button>
-					<button onclick="removeFromQueue()">Leave the line</button>
+					<input type="text" class="form-control" id="nameInputForTicket" placeholder="Your name here.">
+					<button onclick="addToQueue()" type="submit" class="btn btn-success">Get in line</button>
+					<button onclick="removeFromQueue()" type="submit" class="btn btn-danger">Leave the line</button>
 				</div>
 				<div>
 					<h2>Current Queue Length: <span id="currentQueueLength">0</span></h2>
