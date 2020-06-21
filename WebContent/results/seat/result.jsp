@@ -31,8 +31,8 @@
 			<% } %>
 		</tr>
 		<tr>
-			<th scope="row">1-5</th>
-			<% for(int i=1; i<=5; i++) {%>
+			<th scope="row">6-10</th>
+			<% for(int i=6; i<=10; i++) {%>
 				<td><%= result.get(i).get(0) %> - Occupied: 
 				<% if(result.get(i).get(1).equals("0")) { %>
 					<%= "FALSE" %>
@@ -42,8 +42,8 @@
 			<% } %>
 		</tr>
 		<tr>
-			<th scope="row">1-5</th>
-			<% for(int i=1; i<=5; i++) {%>
+			<th scope="row">11-15</th>
+			<% for(int i=11; i<=15; i++) {%>
 				<td><%= result.get(i).get(0) %> - Occupied: 
 				<% if(result.get(i).get(1).equals("0")) { %>
 					<%= "FALSE" %>
@@ -53,8 +53,8 @@
 			<% } %>
 		</tr>
 		<tr>
-			<th scope="row">1-5</th>
-			<% for(int i=1; i<=5; i++) {%>
+			<th scope="row">16-20</th>
+			<% for(int i=16; i<=20; i++) {%>
 				<td><%= result.get(i).get(0) %> - Occupied: 
 				<% if(result.get(i).get(1).equals("0")) { %>
 					<%= "FALSE" %>
@@ -64,8 +64,8 @@
 			<% } %>
 		</tr>
 		<tr>
-			<th scope="row">1-5</th>
-			<% for(int i=1; i<=5; i++) {%>
+			<th scope="row">21-25</th>
+			<% for(int i=21; i<=25; i++) {%>
 				<td><%= result.get(i).get(0) %> - Occupied: 
 				<% if(result.get(i).get(1).equals("0")) { %>
 					<%= "FALSE" %>
