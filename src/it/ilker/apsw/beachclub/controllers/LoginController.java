@@ -51,8 +51,10 @@ public class LoginController extends HttpServlet {
         		address = "/results/auth/error.html";
         	} else {
                 try {
+                	// Logout any existing user authenticated with j_security_check
+                	request.logout();
+                	
                 	username = query.getResult().get(1).get(1);
-                	System.out.println(username);
 
                 	request.getSession().setAttribute("username", username);
                 	request.setAttribute("username", username);
