@@ -22,7 +22,7 @@
 		</script>
 	</head>
 	<body>
-	<% String currentUsername = (String) session.getAttribute("username"); %>
+	<% String currentUsername = (String) request.getSession().getAttribute("username"); System.out.println(currentUsername);%>
 		<div class="container-fluid">
 			<div>
 				<nav class="navbar navbar-expand-lg navbar-light bg-light">

@@ -1,13 +1,12 @@
 package it.ilker.apsw.beachclub.controllers;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import it.ilker.apsw.beachclub.models.Query;
 
@@ -31,17 +30,13 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {     
 		String address = "/auth/login.html";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(address);
-        dispatcher.forward(request, response);
+		request.getRequestDispatcher(address).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.logout();
-        response.setContentType("text/html;charset=UTF-8");
-        
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
         String address = "";
         String email = request.getParameter("loginEmail");
         String password = request.getParameter("loginPassword");
@@ -49,8 +44,6 @@ public class LoginController extends HttpServlet {
         
         String sql = "select * from users where email='" + email + "'" + " and password='" + password + "'";
         Query query= new Query(sql);
-
-        request.setAttribute("query", query);
         Database.execute(query);
         
         if(query.getStatus() == Database.RESULT ) {
@@ -59,22 +52,21 @@ public class LoginController extends HttpServlet {
         	} else {
                 try {
                 	username = query.getResult().get(1).get(1);
+                	System.out.println(username);
+
+                	request.getSession().setAttribute("username", username);
+                	request.setAttribute("username", username);
                 	request.login(username, password);
-                	HttpSession session = request.getSession();
-                	session.setAttribute("username", username);
                 	address = "index.jsp";
                 } catch(ServletException exception) {
                 	System.out.println("Login failed " + exception);
                 	address = "/results/auth/error.html";
                 }
         	}
-        } else if(query.getStatus() == Database.NORESULT) {
-        	address = "/results/unknown-seat.jsp"; // TODO change
         } else {
         	address = "/results/auth/error.html";
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher(address);
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher(address).forward(request, response);
 	}
 }
