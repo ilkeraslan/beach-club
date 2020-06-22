@@ -15,8 +15,6 @@
 	<% 
 		String seatId = (String) request.getAttribute("seatId"); 
 		Seat seat = BeachBookingService.findSeat(seatId);
-		System.out.println(seat.getId());
-		System.out.println(seat.getIsOccupied());
 	%>
 	<div class="container-fluid">
 		<div class="mt-4">
