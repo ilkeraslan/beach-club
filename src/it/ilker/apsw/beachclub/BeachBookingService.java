@@ -13,7 +13,7 @@ public class BeachBookingService {
 	public static final String OCCUPY = "OCCUPY";
 	public static final String FREE = "FREE";
 	
-	private final static Map<String, Seat> seats = new HashMap<String, Seat>(25);
+	private static final Map<String, Seat> seats = new HashMap<String, Seat>(25);
 	
 	static {
 		String sql = "select * from sunbeds";
@@ -22,7 +22,7 @@ public class BeachBookingService {
 		List<List<String>> result = query.getResult();
 		
 		for(int i=1; i<result.size(); i++) {
-			addSeat(new Seat(result.get(i).get(0)));
+			addSeat(new Seat(result.get(i).get(0), result.get(i).get(1)));
 		}
 	}
 	
@@ -37,7 +37,7 @@ public class BeachBookingService {
 		return null;
 	}
 	
-	public Map<String, Seat> getSeats() {
+	public static Map<String, Seat> getSeats() {
 		return seats;
 	}
 	
@@ -50,7 +50,7 @@ public class BeachBookingService {
 			
 			if(query.getStatus() == Database.NORESULT) {
 				System.out.println("Occupied the seat " + seat.getId());
-				seat.occupySeat();
+				seat.setIsOccupied(true);
 			} else if(query.getStatus() == Database.RESULT) {
 				System.out.println("Query returned result");
 			} else {
@@ -70,7 +70,7 @@ public class BeachBookingService {
 			
 			if(query.getStatus() == Database.NORESULT) {
 				System.out.println("Seat is free now");
-				seat.freeSeat();
+				seat.setIsOccupied(false);
 			} else if(query.getStatus() == Database.RESULT) {
 				System.out.println("Query returned result");
 			} else {

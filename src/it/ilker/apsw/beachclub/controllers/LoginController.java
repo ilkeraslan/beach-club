@@ -41,18 +41,19 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.logout();
         response.setContentType("text/html;charset=UTF-8");
+        
         String address = "";
         String email = request.getParameter("loginEmail");
         String password = request.getParameter("loginPassword");
         String username = "";
+        
         String sql = "select * from users where email='" + email + "'" + " and password='" + password + "'";
         Query query= new Query(sql);
-        System.out.println(sql.toString());
+
         request.setAttribute("query", query);
         Database.execute(query);
         
         if(query.getStatus() == Database.RESULT ) {
-        	System.out.println(query.getResult().toString());
         	if(query.getResult().isEmpty() || query.getResult().size() == 1) {
         		address = "/results/auth/error.html";
         	} else {
@@ -62,7 +63,6 @@ public class LoginController extends HttpServlet {
                 	HttpSession session = request.getSession();
                 	session.setAttribute("username", username);
                 	address = "index.jsp";
-                	System.out.println(request.getRemoteUser().toString());
                 } catch(ServletException exception) {
                 	System.out.println("Login failed " + exception);
                 	address = "/results/auth/error.html";

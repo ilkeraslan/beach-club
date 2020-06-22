@@ -40,7 +40,7 @@ public class BookingController extends HttpServlet {
 		String address = "/results/seat/booking-result.jsp";
 		String seatId = request.getParameter("bookingSeatId");
 		String operationType = request.getParameter("operationType");
-		System.out.println(operationType);
+		
 		Seat seatToBook = BeachBookingService.findSeat(seatId.toString());
 		
 		if(operationType.equals(BeachBookingService.OCCUPY)) {

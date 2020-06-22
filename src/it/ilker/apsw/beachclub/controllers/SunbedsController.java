@@ -1,6 +1,8 @@
 package it.ilker.apsw.beachclub.controllers;
 
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.ilker.apsw.beachclub.models.Query;
+import it.ilker.apsw.beachclub.BeachBookingService;
+import it.ilker.apsw.beachclub.models.Seat;
 
 /**
  * Servlet implementation class LoginController
@@ -28,25 +31,14 @@ public class SunbedsController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String address = "";
-		String sql = "select * from sunbeds";
-
-		Query q = new Query(sql);
-		request.setAttribute("query", q);
-		Database.execute(q);
+		String address = "/WEB-INF/view/error.jsp";
 		
-		switch(q.getStatus()) {
-		case Database.RESULT:
+		Map<String, Seat> seats;
+		seats = BeachBookingService.getSeats();
+		request.setAttribute("seats", seats);
+		
+		if(!seats.isEmpty() ) {
 			address = "/results/seat/result.jsp";
-			break;
-		case Database.NORESULT:
-			address = "/WEB-INF/view/noresult.jsp";
-			break;
-		case Database.ERROR:
-			address = "/WEB-INF/view/error.jsp";
-			break;
-		default:
-			address = "/WEB-INF/view/invalid.jsp";
 		}
 			
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
