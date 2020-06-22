@@ -7,7 +7,6 @@
 <h2>Club Availability</h2>
 <%
 	Map<String, Seat> seats = (Map<String, Seat>) request.getAttribute("seats");
-	System.out.println(seats.size());
 %>
 <table class="table table-bordered table-striped">
 
