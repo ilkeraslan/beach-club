@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="it.ilker.apsw.beachclub.TicketLineService"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.HashMap"%>
 <html>
@@ -22,7 +23,11 @@
 		</script>
 	</head>
 	<body>
-	<% String currentUsername = (String) request.getSession().getAttribute("username"); System.out.println(currentUsername);%>
+	<% 
+		String currentUsername = (String) request.getSession().getAttribute("username"); 
+		System.out.println(currentUsername);
+		System.out.println(TicketLineService.getLine().size());
+	%>
 		<div class="container-fluid">
 			<div>
 				<nav class="navbar navbar-expand-lg navbar-light bg-light">
