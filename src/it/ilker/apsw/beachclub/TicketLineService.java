@@ -1,14 +1,11 @@
 package it.ilker.apsw.beachclub;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import it.ilker.apsw.beachclub.controllers.Database;
 import it.ilker.apsw.beachclub.models.Client;
 import it.ilker.apsw.beachclub.models.Query;
-import it.ilker.apsw.beachclub.models.Seat;
 
 public class TicketLineService {
 	
@@ -25,8 +22,16 @@ public class TicketLineService {
 		}
 	}
 	
-	private static void addToLine(Client client) {
-		line.add(client);
+	public static void addToLine(Client client) {
+		if(!line.contains(client)) {
+			line.add(client);
+		}
+	}
+	
+	public static void removeFromLine(Client client) {
+		if(line.contains(client)) {
+			line.remove(client);
+		}
 	}
 	
 	public static List<Client> getLine() {
