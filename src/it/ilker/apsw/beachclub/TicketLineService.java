@@ -18,49 +18,55 @@ public class TicketLineService {
 		List<List<String>> result = query.getResult();
 		
 		for(int i=1; i<result.size(); i++) {
-			addToLine(ClientSearchService.findClient(""+i));
+			insertClientToLine(ClientSearchService.findClient(""+i));
 		}
+	}
+	
+	private static void insertClientToLine(Client client) {
+		if(!line.contains(client)) {
+			line.add(client);
+		}
+	}
+
+	public static List<Client> getLine() {
+		return line;
 	}
 	
 	public static void addToLine(Client client) {
 		if(!line.contains(client)) {
-			line.add(client);
+			try {
+				String sql = "insert into ticket_line (user_id) values " + "('" + client.getId() + ")";
+				Query query = new Query(sql);
+				Database.execute(query);
+				
+				if(query.getStatus() == Database.NORESULT) {
+					line.add(client);
+					System.out.println("Added to line.");
+				} else {
+					System.out.println("Insertion in line failed.");
+				}
+			} catch(Exception exception) {
+				System.out.println("Insertion in line failed: " + exception.getLocalizedMessage());
+			}
 		}
 	}
 	
 	public static void removeFromLine(Client client) {
 		if(line.contains(client)) {
-			line.remove(client);
+			try {
+				String sql = "delete from ticket_line where user_id='" + client.getId() + "')";
+				Query query = new Query(sql);
+				Database.execute(query);
+				
+				if(query.getStatus() == Database.NORESULT) {
+					line.remove(client);
+					System.out.println("Deleted from line.");
+				} else {
+					System.out.println("Deletion from line failed.");
+				}
+			} catch(Exception exception) {
+				System.out.println("Deletion from line failed: " + exception.getLocalizedMessage());
+			}
 		}
 	}
-	
-	public static List<Client> getLine() {
-		return line;
-	}
-	
-	/*
-	 * public static void occupySeat(String seatId) { try { Seat seat =
-	 * seats.get(seatId); String sql =
-	 * "update sunbeds set isOccupied='1' where id='" + seatId + "'"; Query query =
-	 * new Query(sql); Database.execute(query);
-	 * 
-	 * if(query.getStatus() == Database.NORESULT) {
-	 * System.out.println("Occupied the seat " + seat.getId());
-	 * seat.setIsOccupied(true); } else if(query.getStatus() == Database.RESULT) {
-	 * System.out.println("Query returned result"); } else {
-	 * System.out.println("Error during query."); } } catch(Exception exception) {
-	 * System.out.println(exception.getLocalizedMessage()); } }
-	 * 
-	 * public static void freeSeat(String seatId) { try { Seat seat =
-	 * seats.get(seatId); String sql =
-	 * "update sunbeds set isOccupied='0' where id='" + seatId + "'"; Query query =
-	 * new Query(sql); Database.execute(query);
-	 * 
-	 * if(query.getStatus() == Database.NORESULT) {
-	 * System.out.println("Seat is free now"); seat.setIsOccupied(false); } else
-	 * if(query.getStatus() == Database.RESULT) {
-	 * System.out.println("Query returned result"); } else {
-	 * System.out.println("Error during query."); } } catch(Exception exception) {
-	 * System.out.println(exception.getLocalizedMessage()); } }
-	 */
 }
