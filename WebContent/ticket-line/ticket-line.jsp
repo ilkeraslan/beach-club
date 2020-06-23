@@ -26,7 +26,7 @@
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
 			  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			  <% if(currentUsername == null) { %>
+			  <% if(currentUsername == null && request.getRemoteUser() == null) { %>
 			    <div class="navbar-nav">
 			      <a class="nav-item nav-link active" href="/beach-club/">Home <span class="sr-only">(current)</span></a>
 				  <a class="nav-item nav-link" href="ticket-line">TicketLine</a>
@@ -43,7 +43,7 @@
 			        <a class="nav-item nav-link" href="client-search.html">Client Search</a>
 			        <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
 			        <a class="nav-item nav-link" href="./payments/cart.jsp">Cart</a>
-			        <a class="nav-item nav-link" href="./auth/logout.jsp">Logout</a>
+			        <a class="nav-item nav-link" href="/beach-club/auth/logout.jsp">Logout</a>
 			      </div>
 			    <% } %>
 			  </div>
@@ -68,7 +68,7 @@
 		</div>
 		
  		<div class="mt-4 text-center">
-			<% if(currentUsername == null) { %>
+			<% if(currentUsername == null && request.getRemoteUser() == null) { %>
 				<a href="login"><button class="btn btn-success">Already a client? Login!</button></a>
 				<a href="signup"><button class="btn btn-warning">Not a client? Register!</button></a>
 			<% } else { %>

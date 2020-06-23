@@ -10,7 +10,41 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="container-fluid">
+	<% 
+		String currentUsername = (String) request.getSession().getAttribute("username"); 
+	%>
+	<div class="container-fluid">		
+		<div>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			  <a class="navbar-brand" href="/beach-club/">BeachClub</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			  <% if(currentUsername == null && request.getRemoteUser() == null) { %>
+			    <div class="navbar-nav">
+			      <a class="nav-item nav-link active" href="/beach-club/">Home <span class="sr-only">(current)</span></a>
+				  <a class="nav-item nav-link" href="ticket-line">TicketLine</a>
+			      <a class="nav-item nav-link" href="client-search.html">Client Search</a>
+			      <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
+			      <a class="nav-item nav-link" href="./payments/cart.jsp">Cart</a>
+			      <a class="nav-item nav-link" href="./auth/login.html">Login</a>
+			      <a class="nav-item nav-link" href="./auth/signup.html">Signup</a>
+			    </div>
+			    <% } else { %>
+			      <div class="navbar-nav">
+			        <a class="nav-item nav-link active" href="/beach-club/">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link" href="ticket-line">TicketLine</a>
+			        <a class="nav-item nav-link" href="client-search.html">Client Search</a>
+			        <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
+			        <a class="nav-item nav-link" href="./payments/cart.jsp">Cart</a>
+			        <a class="nav-item nav-link" href="/beach-club/auth/logout.jsp">Logout</a>
+			      </div>
+			    <% } %>
+			  </div>
+			</nav>
+		</div>
+		
 		<h2>Welcome to your cart!</h2>
 
 		<a href="../auth/logout.jsp">Logout</a>
