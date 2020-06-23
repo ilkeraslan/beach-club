@@ -39,6 +39,7 @@
 				  <% if(currentUsername == null) { %>
 				    <div class="navbar-nav">
 				      <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
+					  <a class="nav-item nav-link" href="ticket-line">TicketLine</a>
 				      <a class="nav-item nav-link" href="client-search.html">Client Search</a>
 				      <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
 				      <a class="nav-item nav-link" href="./payments/cart.html">Cart</a>
@@ -48,6 +49,7 @@
 				    <% } else { %>
 				      <div class="navbar-nav">
 				        <a class="nav-item nav-link active" href="">Home <span class="sr-only">(current)</span></a>
+						<a class="nav-item nav-link" href="ticket-line">TicketLine</a>
 				        <a class="nav-item nav-link" href="client-search.html">Client Search</a>
 				        <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
 				        <a class="nav-item nav-link" href="./payments/cart.html">Cart</a>
