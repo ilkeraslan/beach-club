@@ -86,4 +86,25 @@ public class TicketLineService {
 			}
 		}
 	}
+	
+	public static void removeFirst() {
+		if(!line.isEmpty()) {
+			try {
+				String sql = "delete from ticket_line where user_id='" + line.get(0).getId() + "'";
+				Query query = new Query(sql);
+				Database.execute(query);
+				
+				System.out.println(sql);
+				
+				if(query.getStatus() == Database.NORESULT) {
+					refreshLine();
+					System.out.println("Deleted from line.");
+				} else {
+					System.out.println("Deletion from line failed.");
+				}
+			} catch(Exception exception) {
+				System.out.println("Deletion from line failed: " + exception.getLocalizedMessage());
+			}
+		}
+	}
 }

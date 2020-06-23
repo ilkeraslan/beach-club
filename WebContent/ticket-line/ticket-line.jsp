@@ -29,7 +29,7 @@
 				<tbody>
 					<% for(int i=0; i<line.size(); i++) { %>
 					<tr>
-						<td>Client ID</td>
+						<td>Client Name Surname</td>
 						<td><%= line.get(i).getFirstName() + " " + line.get(i).getLastName() %></td>
 					</tr>
 					<% } %>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import it.ilker.apsw.beachclub.BeachBookingService;
+import it.ilker.apsw.beachclub.TicketLineService;
 import it.ilker.apsw.beachclub.models.Seat;
 
 /**
@@ -42,7 +43,12 @@ public class BookingController extends HttpServlet {
 		Seat seatToBook = BeachBookingService.findSeat(seatId.toString());
 		
 		if(operationType.equals(BeachBookingService.OCCUPY)) {
-			BeachBookingService.occupySeat(seatToBook.getId());
+			try {
+				BeachBookingService.occupySeat(seatToBook.getId());
+				TicketLineService.removeFirst();
+			} catch(Exception exception) {
+				System.out.println("No client in TicketLine to assign the seat.");
+			}
 		} else if(operationType.equals(BeachBookingService.FREE)) {
 			BeachBookingService.freeSeat(seatToBook.getId());
 		} else {
