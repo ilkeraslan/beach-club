@@ -25,8 +25,8 @@
 	<body>
 	<% 
 		String currentUsername = (String) request.getSession().getAttribute("username"); 
-		System.out.println(currentUsername);
-		System.out.println(TicketLineService.getLine().size());
+		System.out.println("Current username: " + currentUsername);
+		System.out.println("Current line size: " + TicketLineService.getLine().size());
 	%>
 		<div class="container-fluid">
 			<div>
