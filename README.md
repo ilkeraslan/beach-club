@@ -8,6 +8,8 @@ The system contains 4 functionalities:
 - Bar
 - Administration
 
+![home](https://user-images.githubusercontent.com/33685811/85425700-cb051680-b579-11ea-8a39-7154b84cd43c.png)
+
 ## Base
 
 **Ticket office**: A staff member can book a sunbed for the first customer in the queue and can make one available as a customer leaves the beach club.
