@@ -16,6 +16,7 @@
 <body>
 	<%  
 		List<Client> line = (List<Client>) request.getAttribute("line");
+		String currentUsername = (String) request.getSession().getAttribute("username"); 
 	%>
 	<div class="container-fluid">
 		<div class="m-4">
@@ -36,11 +37,16 @@
 			</table>
 		</div>
 		
-<!-- 		<div class="mt-4 text-center">
-			<form action='/beach-club/client-search.html' method="post">
-				<button type="submit" class="btn btn-success">Search Another Client</button>	
-			</form>
-		</div> -->
+ 		<div class="mt-4 text-center">
+			<% if(currentUsername == null) { %>
+				<a href="login"><button class="btn btn-success">Already a client? Login!</button></a>
+				<a href="signup"><button class="btn btn-warning">Not a client? Register!</button></a>
+			<% } else { %>
+				<form action='ticket-line' method="post">
+					<button type="submit" class="btn btn-success">Get into line/Leave line</button>
+				</form>
+			<% } %>	
+		</div>
 	</div>
 
 </body>
