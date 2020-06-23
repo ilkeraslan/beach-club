@@ -15,8 +15,39 @@
 	<% 
 		String seatId = (String) request.getAttribute("seatId"); 
 		Seat seat = BeachBookingService.findSeat(seatId);
+		String currentUsername = (String) request.getSession().getAttribute("username"); 
 	%>
 	<div class="container-fluid">
+		<div>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			  <a class="navbar-brand" href="/beach-club/">BeachClub</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			  <% if(currentUsername == null) { %>
+			    <div class="navbar-nav">
+			      <a class="nav-item nav-link active" href="/beach-club/">Home <span class="sr-only">(current)</span></a>
+				  <a class="nav-item nav-link" href="ticket-line">TicketLine</a>
+			      <a class="nav-item nav-link" href="client-search.html">Client Search</a>
+			      <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
+			      <a class="nav-item nav-link" href="./payments/cart.jsp">Cart</a>
+			      <a class="nav-item nav-link" href="./auth/login.html">Login</a>
+			      <a class="nav-item nav-link" href="./auth/signup.html">Signup</a>
+			    </div>
+			    <% } else { %>
+			      <div class="navbar-nav">
+			        <a class="nav-item nav-link active" href="/beach-club/">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link" href="ticket-line">TicketLine</a>
+			        <a class="nav-item nav-link" href="client-search.html">Client Search</a>
+			        <a class="nav-item nav-link" href="seat-search.html">Seat Search</a>
+			        <a class="nav-item nav-link" href="./payments/cart.jsp">Cart</a>
+			        <a class="nav-item nav-link" href="./auth/logout.jsp">Logout</a>
+			      </div>
+			    <% } %>
+			  </div>
+			</nav>
+		</div>
 		<div class="mt-4">
 			<table class="table table-bordered table-striped">
 				<thead class="thead-light">
