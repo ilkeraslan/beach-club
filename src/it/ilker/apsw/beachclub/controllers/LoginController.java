@@ -41,6 +41,7 @@ public class LoginController extends HttpServlet {
         String email = request.getParameter("loginEmail");
         String password = request.getParameter("loginPassword");
         String username = "";
+        String userID = "";
         
         String sql = "select * from users where email='" + email + "'" + " and password='" + password + "'";
         Query query= new Query(sql);
@@ -55,8 +56,10 @@ public class LoginController extends HttpServlet {
                 	request.logout();
                 	
                 	username = query.getResult().get(1).get(1);
+                	userID = query.getResult().get(1).get(0);
 
                 	request.getSession().setAttribute("username", username);
+                	request.getSession().setAttribute("userID", userID);
                 	request.setAttribute("username", username);
                 	request.login(username, password);
                 	address = "index.jsp";

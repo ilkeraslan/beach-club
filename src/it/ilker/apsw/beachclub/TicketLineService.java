@@ -9,7 +9,7 @@ import it.ilker.apsw.beachclub.models.Query;
 
 public class TicketLineService {
 	
-	private static final List<Client> line = new ArrayList<Client>();
+	private static List<Client> line = new ArrayList<Client>();
 	
 	static {
 		String sql = "select * from ticket_line order by id";
@@ -17,8 +17,23 @@ public class TicketLineService {
 		Database.execute(query);
 		List<List<String>> result = query.getResult();
 		
+		System.out.println(result.toString());
+		
 		for(int i=1; i<result.size(); i++) {
-			insertClientToLine(ClientSearchService.findClient(""+i));
+			insertClientToLine(ClientSearchService.findClient(""+result.get(i).get(1)));
+		}
+	}
+	
+	private static void refreshLine() {
+		String sql = "select * from ticket_line order by id";
+		Query query = new Query(sql);
+		Database.execute(query);
+		List<List<String>> result = query.getResult();
+		
+		line = new ArrayList<Client>();
+		
+		for(int i=1; i<result.size(); i++) {
+			insertClientToLine(ClientSearchService.findClient(""+result.get(i).get(1)));
 		}
 	}
 	
@@ -35,7 +50,7 @@ public class TicketLineService {
 	public static void addToLine(Client client) {
 		if(!line.contains(client)) {
 			try {
-				String sql = "insert into ticket_line (user_id) values " + "('" + client.getId() + ")";
+				String sql = "insert into ticket_line (user_id) values " + "('" + client.getId() + "')";
 				Query query = new Query(sql);
 				Database.execute(query);
 				
@@ -54,9 +69,11 @@ public class TicketLineService {
 	public static void removeFromLine(Client client) {
 		if(line.contains(client)) {
 			try {
-				String sql = "delete from ticket_line where user_id='" + client.getId() + "')";
+				String sql = "delete from ticket_line where user_id='" + client.getId() + "'";
 				Query query = new Query(sql);
 				Database.execute(query);
+				
+				System.out.println(sql);
 				
 				if(query.getStatus() == Database.NORESULT) {
 					line.remove(client);
