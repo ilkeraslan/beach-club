@@ -1,4 +1,9 @@
+<%@page import="it.ilker.apsw.beachclub.ClientSearchService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="it.ilker.apsw.beachclub.CartService"%>
+<%@ page import="it.ilker.apsw.beachclub.models.CartItem"%>
+<%@ page import="it.ilker.apsw.beachclub.models.Client"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +16,9 @@
 </head>
 <body>
 	<% 
-		String currentUsername = (String) request.getSession().getAttribute("username"); 
+		String currentUsername = (String) request.getSession().getAttribute("username");
+		List<CartItem> cartItems = (List<CartItem>) CartService.getCartItems();
+		System.out.println(cartItems.toString());
 	%>
 	<div class="container-fluid">		
 		<div>
@@ -46,8 +53,21 @@
 		</div>
 		
 		<h2>Welcome to your cart!</h2>
+		
+		<% if(request.getRemoteUser() != null) { %>
+			<% 
+				Client client = ClientSearchService.findClientByName(request.getRemoteUser());
+				System.out.println(client);
+				try {
+					CartItem cartItem = CartService.getCartItem(client);
+					System.out.println(cartItem);
+				} catch(NullPointerException exception) {
+					System.out.println("No client or debt yet.");
+				}
+			%>
+		<% } %>
 
-		<a href="../auth/logout.jsp">Logout</a>
+		<p class="mt-4" id="noItemsYet">No items yet.</p>
 	</div>
 </body>
 </html>

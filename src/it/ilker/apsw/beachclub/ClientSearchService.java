@@ -37,6 +37,17 @@ public class ClientSearchService {
 		return null;
 	}
 	
+	public static Client findClientByName(String name) {
+		if(name != null && !name.isEmpty()) {
+			for(int i=1; i<=clients.size(); i++) {
+				if(clients.get(""+i).getFirstName().toLowerCase().equals(name)) {
+					return clients.get(""+i);
+				}
+			}
+		}
+		return null;
+	}
+	
 	private static void addClient(Client client) {
 		clients.put(client.getId(), client);
 	}
