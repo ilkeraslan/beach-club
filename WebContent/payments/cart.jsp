@@ -18,6 +18,7 @@
 	<% 
 		String currentUsername = (String) request.getSession().getAttribute("username");
 		List<CartItem> cartItems = (List<CartItem>) CartService.getCartItems();
+		CartItem cartItem;
 		System.out.println(cartItems.toString());
 	%>
 	<div class="container-fluid">		
@@ -57,11 +58,12 @@
 		<% if(request.getRemoteUser() != null) { %>
 			<% 
 				Client client = ClientSearchService.findClientByName(request.getRemoteUser());
-				System.out.println(client);
 				try {
-					CartItem cartItem = CartService.getCartItem(client);
-					System.out.println(cartItem);
-				} catch(NullPointerException exception) {
+					cartItem = CartService.getCartItem(client);
+					System.out.println(cartItem.getDebt());
+					%>
+					<p>DEBT: <%= cartItem.getDebt().toString() %></p>
+				<%} catch(NullPointerException exception) {
 					System.out.println("No client or debt yet.");
 				}
 			%>
