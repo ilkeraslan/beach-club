@@ -64,12 +64,12 @@
 					%>
 					<p>DEBT: <%= cartItem.getDebt().toString() %></p>
 				<%} catch(NullPointerException exception) {
-					System.out.println("No client or debt yet.");
-				}
+					System.out.println("No client or debt yet."); %>
+					<p class="mt-4" id="noItemsYet">No items yet.</p>
+				<% }
 			%>
 		<% } %>
-
-		<p class="mt-4" id="noItemsYet">No items yet.</p>
+		
 	</div>
 </body>
 </html>
